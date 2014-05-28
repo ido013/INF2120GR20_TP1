@@ -58,17 +58,19 @@ public class ListePrioriteImplTest {
 	/**
 	 * Test method for {@link ca.uqam.inf2120.tp1.adt.impl.ListePrioriteImpl#ListePrioriteImpl()}.
 	 */
-	@Test
-	public void testListePrioriteImpl() {
-		fail("Not yet implemented");
-	}
+	//@Test
+	//public void testListePrioriteImpl() {
+	//	fail("Not yet implemented");
+	//}
 
 	/**
 	 * Test method for {@link ca.uqam.inf2120.tp1.adt.impl.ListePrioriteImpl#ajouter(ca.uqam.inf2120.tp1.adt.Priorite)}.
 	 */
 	@Test
 	public void testAjouterT() {
-		fail("Not yet implemented");
+		listePriorite.ajouter(elt1);
+		assertFalse(listePriorite.estVide());
+		
 	}
 
 	/**

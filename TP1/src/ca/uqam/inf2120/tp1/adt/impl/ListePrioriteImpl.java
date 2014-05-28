@@ -33,14 +33,29 @@ public class ListePrioriteImpl<T extends Priorite> implements ListePrioriteTda<T
 		boolean fin=false;
 		if(elt!=null && !liste.contains(elt) && !(elt.obtenirPriorite()<=0)){
 			ListIterator<T> it = liste.listIterator();
-			while (it.hasNext() && !fin) {
-				if(it.next().obtenirPriorite()==elt.obtenirPriorite()){
-					liste.add(it.nextIndex()+1,elt);
-					fin=true;
-				}else if(it.next().obtenirPriorite()<elt.obtenirPriorite()){
+			if(liste.size()==0){
+				liste.add(elt);
+				reponse=true;
+			}else{
+				while (it.hasNext() && !fin) {
+					if(it.next().obtenirPriorite()==elt.obtenirPriorite()){
+						liste.add(it.nextIndex()+1,elt);
+						fin=true;
+						reponse=true;
+					}else if(it.next().obtenirPriorite()<elt.obtenirPriorite()){
+						it.next();
+						fin=true;
+						reponse=true;
+					}else if(it.next().obtenirPriorite()>elt.obtenirPriorite()){
+						liste.add(it.nextIndex(),elt);
+						fin=true;
+						reponse=true;
+					}else{
+						liste.add(elt);
+						fin=true;
+						reponse=true;
+					}
 					it.next();
-				}else if(it.next().obtenirPriorite()>elt.obtenirPriorite()){
-					liste.add(it.nextIndex(),elt);
 				}
 			}
 		}
