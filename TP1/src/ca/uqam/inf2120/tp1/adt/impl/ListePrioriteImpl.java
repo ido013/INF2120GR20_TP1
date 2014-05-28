@@ -31,12 +31,16 @@ public class ListePrioriteImpl<T extends Priorite> implements ListePrioriteTda<T
 	public boolean ajouter(T elt) {
 		boolean reponse=false;
 		boolean fin=false;
-		int index=0;
 		if(elt!=null && !liste.contains(elt) && !(elt.obtenirPriorite()<=0)){
 			ListIterator<T> it = liste.listIterator();
 			while (it.hasNext() && !fin) {
 				if(it.next().obtenirPriorite()==elt.obtenirPriorite()){
-					
+					liste.add(it.nextIndex()+1,elt);
+					fin=true;
+				}else if(it.next().obtenirPriorite()<elt.obtenirPriorite()){
+					it.next();
+				}else if(it.next().obtenirPriorite()>elt.obtenirPriorite()){
+					liste.add(it.nextIndex(),elt);
 				}
 			}
 		}
