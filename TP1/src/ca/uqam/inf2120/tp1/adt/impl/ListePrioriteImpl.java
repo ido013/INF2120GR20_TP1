@@ -86,7 +86,7 @@ public class ListePrioriteImpl<T extends Priorite> implements ListePrioriteTda<T
 	public void ajouter(List<T> liste) {
 		Iterator<T> it = liste.iterator();
 		while(it.hasNext()){
-			liste1.ajouter(it.next());
+			//liste1.ajouter(it.next());
 		}
 		
 	}
