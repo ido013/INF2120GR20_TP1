@@ -82,7 +82,17 @@ public class ListePrioriteImplTest {
 	 */
 	@Test
 	public void testAjouterListOfT() {
-		fail("Not yet implemented");
+		listeTest.add(elt1);
+		listeTest.add(elt2);
+		listeTest.add(elt3);
+		listeTest.add(elt4);
+		listePriorite.ajouter(listeTest);
+		assertFalse(listePriorite.estVide());
+		int counter=0;
+		while(listePriorite.iterateur().hasNext()){
+			counter++;
+		}
+		assertEquals(4,counter);
 	}
 
 	/**
