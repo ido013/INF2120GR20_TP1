@@ -18,11 +18,11 @@ import ca.uqam.inf2120.tp1.adt.Priorite;
  */
 public class ListePrioriteImpl<T extends Priorite> implements ListePrioriteTda<T> {
 
-	private List<T> liste1;
+	private List<T> liste;
 	
 	// Constructeur
 	public ListePrioriteImpl() {
-		liste1 = new ArrayList<T>();
+		liste = new ArrayList<T>();
 	}
 
 	/**
@@ -43,9 +43,9 @@ public class ListePrioriteImpl<T extends Priorite> implements ListePrioriteTda<T
 	public boolean ajouter(T elt) {
 		boolean reponse=false;
 		boolean fin=false;
-		if(elt!=null && !liste1.contains(elt) && !(elt.obtenirPriorite()<=0)){
-			if(liste1.size()==0){
-				liste1.add(elt);
+		if(elt!=null && !liste.contains(elt) && !(elt.obtenirPriorite()<=0)){
+			if(liste.size()==0){
+				liste.add(elt);
 				reponse=true;
 			}else{
 				while (iterateur().hasNext() && !fin) {
@@ -53,11 +53,11 @@ public class ListePrioriteImpl<T extends Priorite> implements ListePrioriteTda<T
 						fin=false;
 						reponse=false;		
 					}else if(iterateur().next().obtenirPriorite()<elt.obtenirPriorite()){
-						liste1.add(iterateur().nextIndex(),elt);
+						liste.add(iterateur().nextIndex(),elt);
 						fin=true;
 						reponse=true;
 					}else{
-						liste1.add(elt);
+						liste.add(elt);
 						fin=true;
 						reponse=true;
 					}
