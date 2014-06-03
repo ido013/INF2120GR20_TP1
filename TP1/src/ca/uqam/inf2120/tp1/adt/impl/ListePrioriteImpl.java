@@ -17,36 +17,42 @@ import ca.uqam.inf2120.tp1.adt.Priorite;
  */
 public class ListePrioriteImpl<T extends Priorite> implements ListePrioriteTda<T> {
 
-	private List<T> liste = new ArrayList<T>();
+	private List<T> liste;
 	
 	// Constructeur
 	public ListePrioriteImpl() {
 		liste = new ArrayList<T>();
 	}
 
-	/* (non-Javadoc)
-	 * @see ca.uqam.inf2120.tp1.adt.ListePrioriteTda#ajouter(ca.uqam.inf2120.tp1.adt.Priorite)
+	/**
+	 * Ajoute l'élément "elt" dans la liste selon sa priorité. Les éléments de la
+	 * plus grande priorité sont ajoutés au début de la liste. L'élément ne doit 
+	 * pas être ajouté si une des conditions suivantes est vraie :
+	 *   - L'élément est null.
+	 *   - L'élément existe déjà dans la liste (éléments identiques sans tenir compte 
+	 *     de leur priorité).
+	 *   - La priorité de l'élément est inférieure ou égale à 0.
+	 *   
+	 * Si l'élément "elt" à ajouter a la même priorité qu'un élément qui existe dans 
+	 * la liste, il doit être ajouté après ce dernier.
+	 *
+	 * @param elt L'élément à ajouter
+	 * @return true si "elt" est ajouté, sinon false
 	 */
-	@Override
 	public boolean ajouter(T elt) {
 		boolean reponse=false;
 		boolean fin=false;
 		if(elt!=null && !liste.contains(elt) && !(elt.obtenirPriorite()<=0)){
-			ListIterator<T> it = liste.listIterator();
 			if(liste.size()==0){
 				liste.add(elt);
 				reponse=true;
 			}else{
+				ListIterator<T> it = liste.listIterator();
 				while (it.hasNext() && !fin) {
-					if(it.next().obtenirPriorite()==elt.obtenirPriorite()){
-						liste.add(it.nextIndex()+1,elt);
-						fin=true;
-						reponse=true;
+					if(it.next().obtenirPriorite()==elt.obtenirPriorite() || it.next().obtenirPriorite()>elt.obtenirPriorite()){
+						fin=false;
+						reponse=false;		
 					}else if(it.next().obtenirPriorite()<elt.obtenirPriorite()){
-						it.next();
-						fin=true;
-						reponse=true;
-					}else if(it.next().obtenirPriorite()>elt.obtenirPriorite()){
 						liste.add(it.nextIndex(),elt);
 						fin=true;
 						reponse=true;
@@ -55,11 +61,9 @@ public class ListePrioriteImpl<T extends Priorite> implements ListePrioriteTda<T
 						fin=true;
 						reponse=true;
 					}
-					it.next();
 				}
 			}
 		}
-		
 		return reponse;
 	}
 
@@ -103,9 +107,9 @@ public class ListePrioriteImpl<T extends Priorite> implements ListePrioriteTda<T
 	 * @see ca.uqam.inf2120.tp1.adt.ListePrioriteTda#supprimer(int, boolean)
 	 */
 	@Override
-	public boolean supprimer(int priorite, boolean plusPetit) {
+	public List<T> supprimer(int priorite, boolean plusPetit) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -131,18 +135,18 @@ public class ListePrioriteImpl<T extends Priorite> implements ListePrioriteTda<T
 	 * 
 	 * @return Vrai si la liste est vide, sinon faux
 	 */
-	@Override
 	public boolean estVide() {
 		return liste.isEmpty();
 	}
 
-	/* (non-Javadoc)
-	 * @see ca.uqam.inf2120.tp1.adt.ListePrioriteTda#iterateur()
+	/**
+	 * Retourne un itérateur sur la liste courante.
+	 * 
+	 * @return Itérateur sur la liste courante.
 	 */
-	@Override
 	public ListIterator<T> iterateur() {
-		// TODO Auto-generated method stub
-		return null;
+		ListIterator<T> it = liste.listIterator();
+		return it;
 	}
 	
 	

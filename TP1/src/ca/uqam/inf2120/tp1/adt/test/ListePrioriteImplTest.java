@@ -1,12 +1,13 @@
 package ca.uqam.inf2120.tp1.adt.test;
 
+import java.util.List;
+import java.util.ArrayList;
 import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import ca.uqam.inf2120.tp1.adt.ListePrioriteTda;
 import ca.uqam.inf2120.tp1.adt.impl.ListePrioriteImpl;
 
 /**
@@ -19,8 +20,9 @@ import ca.uqam.inf2120.tp1.adt.impl.ListePrioriteImpl;
  */
 public class ListePrioriteImplTest {
 	
-	ListePrioriteTda<ElementT> listePriorite;
-	ElementT elt1, elt2, elt3, elt4, elt5, elt6, elt7, elt8;
+	ListePrioriteImpl<ElementT> listePriorite;
+	List<ElementT> listeTest;
+	ElementT elt1, elt2, elt3, elt4, elt5, elt6, elt7, elt8, elt9;
 	
 
 	/**
@@ -35,8 +37,10 @@ public class ListePrioriteImplTest {
 		elt4 = new ElementT("elt4",4);
 		elt5 = new ElementT("elt5",5);
 		elt6 = new ElementT("elt6",6);
-		elt7 = new ElementT("elt7",1);
-		elt8 = new ElementT("elt8",2);
+		elt7 = new ElementT("elt7",0);
+		elt8 = new ElementT("elt8",-1);
+		elt9 = null;
+		listeTest = new ArrayList<ElementT>();
 	}
 
 	/**
@@ -53,15 +57,8 @@ public class ListePrioriteImplTest {
 		elt6 = null;
 		elt7 = null;
 		elt8 = null;
+		listeTest = null;
 	}
-
-	/**
-	 * Test method for {@link ca.uqam.inf2120.tp1.adt.impl.ListePrioriteImpl#ListePrioriteImpl()}.
-	 */
-	//@Test
-	//public void testListePrioriteImpl() {
-	//	fail("Not yet implemented");
-	//}
 
 	/**
 	 * Test method for {@link ca.uqam.inf2120.tp1.adt.impl.ListePrioriteImpl#ajouter(ca.uqam.inf2120.tp1.adt.Priorite)}.
@@ -70,6 +67,13 @@ public class ListePrioriteImplTest {
 	public void testAjouterT() {
 		listePriorite.ajouter(elt1);
 		assertFalse(listePriorite.estVide());
+		assertFalse(listePriorite.ajouter(elt1));
+		assertFalse(listePriorite.ajouter(elt7));
+		assertFalse(listePriorite.ajouter(elt8));
+		assertFalse(listePriorite.ajouter(elt9));
+		while(listePriorite.iterateur().hasNext()){
+			assertTrue(listePriorite.equals(elt1));
+		}
 		
 	}
 
@@ -135,6 +139,8 @@ public class ListePrioriteImplTest {
 	@Test
 	public void testEstVide() {
 		assertTrue(listePriorite.estVide());
+		listePriorite.ajouter(elt1);
+		assertFalse(listePriorite.estVide());
 	}
 
 	/**
@@ -142,7 +148,9 @@ public class ListePrioriteImplTest {
 	 */
 	@Test
 	public void testIterateur() {
-		fail("Not yet implemented");
+		assertFalse(listePriorite.iterateur().hasNext());
+		listePriorite.ajouter(elt1);
+		assertTrue(listePriorite.iterateur().hasNext());	
 	}
 
 }
