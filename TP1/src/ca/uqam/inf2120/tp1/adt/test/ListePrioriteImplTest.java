@@ -22,7 +22,7 @@ public class ListePrioriteImplTest {
 	
 	ListePrioriteImpl<ElementT> listePriorite;
 	List<ElementT> listeTest;
-	ElementT elt1, elt2, elt3, elt4, elt5, elt6, elt7, elt8, elt9;
+	ElementT elt1, elt2, elt3, elt4, elt5, elt6, elt7, elt8, elt9, eltd1, eltd2;
 	
 
 	/**
@@ -40,6 +40,8 @@ public class ListePrioriteImplTest {
 		elt7 = new ElementT("elt7",0);
 		elt8 = new ElementT("elt8",-1);
 		elt9 = null;
+		eltd1 = new ElementT("eltd1",1);
+		eltd2 = new ElementT("eltd2",2);
 		listeTest = new ArrayList<ElementT>();
 	}
 
@@ -65,15 +67,13 @@ public class ListePrioriteImplTest {
 	 */
 	@Test
 	public void testAjouterT() {
-		listePriorite.ajouter(elt1);
+		assertTrue(listePriorite.ajouter(elt1));
 		assertFalse(listePriorite.estVide());
 		assertFalse(listePriorite.ajouter(elt1));
 		assertFalse(listePriorite.ajouter(elt7));
 		assertFalse(listePriorite.ajouter(elt8));
 		assertFalse(listePriorite.ajouter(elt9));
-		while(listePriorite.iterateur().hasNext()){
-			assertTrue(listePriorite.equals(elt1));
-		}
+		assertTrue(listePriorite.ajouter(elt2));
 		
 	}
 
