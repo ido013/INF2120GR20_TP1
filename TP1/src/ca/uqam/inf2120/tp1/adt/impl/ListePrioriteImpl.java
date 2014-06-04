@@ -143,8 +143,9 @@ public class ListePrioriteImpl<T extends Priorite> implements ListePrioriteTda<T
 	   */
 	public int ObtenirNbElments(int priorite) {
 		int nbPrio=0;
-		for(T i: liste){
-			if(i.obtenirPriorite() == priorite){
+		ListIterator<T> it 
+		while(iterateur().hasNext()){
+			if(iterateur().next().obtenirPriorite() == priorite){
 				nbPrio++;
 			}
 		}

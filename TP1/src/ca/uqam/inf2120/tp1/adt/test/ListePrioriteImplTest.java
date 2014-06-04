@@ -140,7 +140,12 @@ public class ListePrioriteImplTest {
 	 */
 	@Test
 	public void testObtenirNbElments() {
-		fail("Not yet implemented");
+		listePriorite.ajouter(elt1);
+		listePriorite.ajouter(elt2);
+		listePriorite.ajouter(elt3);
+		listePriorite.ajouter(elt4);
+		listePriorite.ajouter(eltd1);
+		assertEquals(1,listePriorite.ObtenirNbElments(2));
 	}
 
 	/**
