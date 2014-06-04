@@ -135,13 +135,20 @@ public class ListePrioriteImpl<T extends Priorite> implements ListePrioriteTda<T
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see ca.uqam.inf2120.tp1.adt.ListePrioriteTda#ObtenirNbElments(int)
-	 */
-	@Override
+	  /**
+	   * Retourne le nombre d'éléments dont la priorité est égale à celle passée en paramètre.
+	   * 
+	   * @param priorite La priorité 
+	   * @return Le nombre d'éléments dont la priorité = "priorite" 
+	   */
 	public int ObtenirNbElments(int priorite) {
-		// TODO Auto-generated method stub
-		return 0;
+		int nbPrio=0;
+		for(T i: liste){
+			if(i.obtenirPriorite() == priorite){
+				nbPrio++;
+			}
+		}
+		return nbPrio;
 	}
 
 	/**
