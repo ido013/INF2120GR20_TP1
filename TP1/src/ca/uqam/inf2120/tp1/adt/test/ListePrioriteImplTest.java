@@ -89,7 +89,7 @@ public class ListePrioriteImplTest {
 		listePriorite.ajouter(listeTest);
 		assertFalse(listePriorite.estVide());
 		int counter=0;
-		while(listePriorite.iterateur().hasNext()){
+		for(ElementT i: listeTest){
 			counter++;
 		}
 		assertEquals(4,counter);
