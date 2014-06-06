@@ -2,6 +2,8 @@ package ca.uqam.inf2120.tp1.adt.test;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.ListIterator;
+
 import static org.junit.Assert.*;
 
 import org.junit.After;
@@ -9,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ca.uqam.inf2120.tp1.adt.impl.ListePrioriteImpl;
+import ca.uqam.inf2120.tp1.adt.ListePrioriteTda;
 
 /**
  * UQAM - Été 2014 - INF2120 - Groupe 20 - TP1
@@ -20,7 +23,7 @@ import ca.uqam.inf2120.tp1.adt.impl.ListePrioriteImpl;
  */
 public class ListePrioriteImplTest {
 	
-	ListePrioriteImpl<ElementT> listePriorite;
+	ListePrioriteTda<ElementT> listePriorite;
 	List<ElementT> listeTest;
 	ElementT elt1, elt2, elt3, elt4, elt5, elt6, elt7, elt8, elt9, eltd1, eltd2;
 	
@@ -74,6 +77,22 @@ public class ListePrioriteImplTest {
 		assertFalse(listePriorite.ajouter(elt8));
 		assertFalse(listePriorite.ajouter(elt9));
 		assertTrue(listePriorite.ajouter(elt2));
+		assertTrue(listePriorite.ajouter(elt3));
+		assertTrue(listePriorite.ajouter(eltd1));
+		assertTrue(listePriorite.ajouter(eltd2));
+		ListIterator<ElementT> it = listePriorite.iterateur();
+		int counter=0;
+		while(it.hasNext()){
+			counter++;
+			it.next();
+		}
+		assertEquals(5,counter);
+		ListIterator<ElementT> it2 = listePriorite.iterateur();
+		assertTrue(it2.next().equals(elt3));
+		assertTrue(it2.next().equals(elt2));
+		assertTrue(it2.next().equals(eltd2));
+		assertTrue(it2.next().equals(elt1));
+		assertTrue(it2.next().equals(eltd1));
 		
 	}
 
@@ -88,11 +107,18 @@ public class ListePrioriteImplTest {
 		listeTest.add(elt4);
 		listePriorite.ajouter(listeTest);
 		assertFalse(listePriorite.estVide());
+		ListIterator<ElementT> it = listePriorite.iterateur();
 		int counter=0;
-		for(ElementT i: listeTest){
+		while(it.hasNext()){
 			counter++;
+			it.next();
 		}
 		assertEquals(4,counter);
+		ListIterator<ElementT> it2 = listePriorite.iterateur();
+		assertTrue(it2.next().equals(elt4));
+		assertTrue(it2.next().equals(elt3));
+		assertTrue(it2.next().equals(elt2));
+		assertTrue(it2.next().equals(elt1));
 	}
 
 	/**
@@ -140,12 +166,15 @@ public class ListePrioriteImplTest {
 	 */
 	@Test
 	public void testObtenirNbElments() {
+		assertEquals(0,listePriorite.ObtenirNbElments(1));
 		listePriorite.ajouter(elt1);
 		listePriorite.ajouter(elt2);
 		listePriorite.ajouter(elt3);
 		listePriorite.ajouter(elt4);
 		listePriorite.ajouter(eltd1);
-		assertEquals(1,listePriorite.ObtenirNbElments(2));
+		listePriorite.ajouter(eltd2);
+		assertEquals(2,listePriorite.ObtenirNbElments(2));
+		assertEquals(2,listePriorite.ObtenirNbElments(1));
 	}
 
 	/**
@@ -163,9 +192,10 @@ public class ListePrioriteImplTest {
 	 */
 	@Test
 	public void testIterateur() {
-		assertFalse(listePriorite.iterateur().hasNext());
+		ListIterator<ElementT> it = listePriorite.iterateur();
+		assertFalse(it.hasNext());
 		listePriorite.ajouter(elt1);
-		assertTrue(listePriorite.iterateur().hasNext());	
+		assertTrue(it.hasNext());
 	}
 
 }
