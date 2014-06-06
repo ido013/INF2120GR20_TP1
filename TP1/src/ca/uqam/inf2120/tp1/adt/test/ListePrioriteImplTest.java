@@ -127,7 +127,11 @@ public class ListePrioriteImplTest {
 	@Test
 	public void testSupprimerT() {
 		listePriorite.ajouter(elt1);
+		listePriorite.ajouter(elt2);
+		assertTrue(listePriorite.supprimer(elt2));
 		assertTrue(listePriorite.supprimer(elt1));
+		assertFalse(listePriorite.supprimer(elt3));
+		assertFalse(listePriorite.supprimer(elt2));
 		assertTrue(listePriorite.estVide());
 	}
 
@@ -136,7 +140,28 @@ public class ListePrioriteImplTest {
 	 */
 	@Test
 	public void testSupprimerListOfT() {
-		fail("Not yet implemented");
+		listePriorite.ajouter(elt1);
+		listePriorite.ajouter(elt2);
+		listePriorite.ajouter(elt3);
+		listePriorite.ajouter(elt4);
+		listePriorite.ajouter(elt5);
+		listeTest.add(elt1);
+		listeTest.add(elt2);
+		listeTest.add(elt3);
+		listeTest.add(elt4);
+		listeTest.add(elt4);
+		listeTest.add(elt5);
+		listeTest.add(elt6);
+		listeTest.add(elt7);
+		List<ElementT> listRet = listePriorite.supprimer(listeTest);
+		assertFalse(listRet.contains(elt1));
+		assertFalse(listRet.contains(elt2));
+		assertFalse(listRet.contains(elt3));
+		assertTrue(listRet.contains(elt4));
+		assertFalse(listRet.contains(elt5));
+		assertTrue(listRet.contains(elt6));
+		assertTrue(listRet.contains(elt7));
+		
 	}
 
 	/**
@@ -144,8 +169,17 @@ public class ListePrioriteImplTest {
 	 */
 	@Test
 	public void testSupprimerInt() {
-		fail("Not yet implemented");
+		listePriorite.ajouter(elt1);
+		listePriorite.ajouter(eltd1);
+		//assertEquals(null,listePriorite.supprimer(2));
+		listePriorite.supprimer(1);
+		assertTrue(listePriorite.estVide());
+		/*List<ElementT> listRet = listePriorite.supprimer(1);
+		assertTrue(listRet.contains(elt1));
+		assertTrue(listRet.contains(eltd1));
+		//assertTrue(listePriorite.estVide());*/
 	}
+		 
 
 	/**
 	 * Test method for {@link ca.uqam.inf2120.tp1.adt.impl.ListePrioriteImpl#supprimer(int, boolean)}.

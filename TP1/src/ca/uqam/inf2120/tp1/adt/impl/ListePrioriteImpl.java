@@ -105,34 +105,65 @@ public class ListePrioriteImpl<T extends Priorite> implements ListePrioriteTda<T
 		boolean fin=false;
 		if(elt!=null && liste.contains(elt)){
 			ListIterator<T> it = this.iterateur();
-			while (it.hasNext() && !fin) {
+			while(it.hasNext()&&!fin){
 				int priorite = it.next().obtenirPriorite();
-				if(priorite==elt.obtenirPriorite()&&it.equals(elt)){
-					liste.remove(elt);
+				if(priorite==elt.obtenirPriorite()){
+					reponse = liste.remove(elt);
 					fin=true;
-					reponse=true;
 				}
 			}
+			reponse=true;
 		}
 		return reponse;
 	}
 
-	/* (non-Javadoc)
-	 * @see ca.uqam.inf2120.tp1.adt.ListePrioriteTda#supprimer(java.util.List)
+	/**
+	 * Supprime tous les éléments de la liste passée en paramètre dans la liste
+	 * existante. Tous les éléments non supprimés de la liste passée en paramètre
+	 * sont retournés dans un tableau liste (ArrayList). L'élément à supprimer doit
+	 * être égal à "elt" avec la même priorité.
+	 * 
+	 * @param liste Le tableau liste (ArrayList) dont les éléments doivent être supprimés
+	 * @return Le tableau liste (ArrayList) des éléments non supprimés, nul si tous les éléments
+	 *         sont supprimés.
 	 */
-	@Override
 	public List<T> supprimer(List<T> liste) {
-		// TODO Auto-generated method stub
-		return null;
+		List<T> listeRet = new ArrayList<T>();
+		if(liste!=null){
+			for(T i: liste){
+				if(!this.supprimer(i)){
+					listeRet.add(i);
+				}
+			}
+		}
+		return listeRet;
 	}
 
-	/* (non-Javadoc)
-	 * @see ca.uqam.inf2120.tp1.adt.ListePrioriteTda#supprimer(int)
+	/**
+	 * Supprime tous les éléments dont la priorité est égale à celle passée en
+	 * paramètre. Les éléments supprimés sont retournés dans un tableau liste.
+	 * Une valeur nulle est retournée si aucun élément n'est supprimé.
+	 * 
+	 * @param priorite La priorité des éléments à supprimer
+	 * @return Le tableau liste des éléments supprimés
 	 */
-	@Override
 	public List<T> supprimer(int priorite) {
-		// TODO Auto-generated method stub
-		return null;
+		List<T> listRet = new ArrayList<T>();
+		int counter=0;
+		ListIterator<T> it = this.iterateur();
+		while(it.hasNext()){
+			T item = it.next();
+			int prioList = item.obtenirPriorite();
+			if(prioList==priorite){
+				listRet.add(item);
+				this.supprimer(item);
+				counter++;
+			}
+		}
+		if(counter==0){
+			listRet=null;
+		}
+		return listRet;
 	}
 
 	/* (non-Javadoc)
