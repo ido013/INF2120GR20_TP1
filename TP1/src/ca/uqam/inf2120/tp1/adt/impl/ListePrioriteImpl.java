@@ -2,7 +2,6 @@ package ca.uqam.inf2120.tp1.adt.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Iterator;
 import java.util.ListIterator;
 
 import ca.uqam.inf2120.tp1.adt.ListePrioriteTda;
@@ -48,20 +47,22 @@ public class ListePrioriteImpl<T extends Priorite> implements ListePrioriteTda<T
 				liste.add(elt);
 				reponse=true;
 			}else{
-				while (iterateur().hasNext() && !fin) {
-					if(iterateur().next().obtenirPriorite()==elt.obtenirPriorite() || iterateur().next().obtenirPriorite()>elt.obtenirPriorite()){
-						fin=false;
-						reponse=false;		
-					}else if(iterateur().next().obtenirPriorite()<elt.obtenirPriorite()){
-						liste.add(iterateur().nextIndex(),elt);
-						fin=true;
-						reponse=true;
-					}else{
-						liste.add(elt);
-						fin=true;
-						reponse=true;
+				ListIterator<T> it = this.iterateur();
+				while (it.hasNext() && !fin) {
+					int priorite = it.next().obtenirPriorite();
+					int indPrio = it.nextIndex();
+					if(elt.obtenirPriorite()!=priorite){	
+						if(elt.obtenirPriorite()>priorite){
+							liste.add(indPrio-1,elt);
+							fin=true;
+							reponse=true;
+						}
 					}
 				}
+			}
+			if(!reponse){
+				liste.add(elt);
+				reponse=true;
 			}
 		}
 		return reponse;
@@ -84,19 +85,36 @@ public class ListePrioriteImpl<T extends Priorite> implements ListePrioriteTda<T
 	 * @param liste Le tableau liste (ArrayList) dont les éléments doivent être ajoutés
 	 */
 	public void ajouter(List<T> liste) {
-		Iterator<T> it = liste.iterator();
-		while(it.hasNext()){
-			this.ajouter(it.next());
-		}	
+		if(liste!=null){
+			for(T i: liste){
+				this.ajouter(i);
+			}
+		}
 	}
 
-	/* (non-Javadoc)
-	 * @see ca.uqam.inf2120.tp1.adt.ListePrioriteTda#supprimer(ca.uqam.inf2120.tp1.adt.Priorite)
+	/**
+	 * Supprime "elt" dans la liste existante. Aucune suppression si "elt" est
+	 * nul ou s'il n'existe pas dans la liste. L'élément à supprimer doit être
+	 * égal à celui passé en paramètre ("elt") avec la même priorité.
+	 * 
+	 * @param elt L'élément à supprimer
+	 * @return Vrai si l'élément est supprimé
 	 */
-	@Override
 	public boolean supprimer(T elt) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean reponse=false;
+		boolean fin=false;
+		if(elt!=null && liste.contains(elt)){
+			ListIterator<T> it = this.iterateur();
+			while (it.hasNext() && !fin) {
+				int priorite = it.next().obtenirPriorite();
+				if(priorite==elt.obtenirPriorite()&&it.equals(elt)){
+					liste.remove(elt);
+					fin=true;
+					reponse=true;
+				}
+			}
+		}
+		return reponse;
 	}
 
 	/* (non-Javadoc)
@@ -143,9 +161,9 @@ public class ListePrioriteImpl<T extends Priorite> implements ListePrioriteTda<T
 	   */
 	public int ObtenirNbElments(int priorite) {
 		int nbPrio=0;
-		ListIterator<T> it 
-		while(iterateur().hasNext()){
-			if(iterateur().next().obtenirPriorite() == priorite){
+		ListIterator<T> it = this.iterateur();
+		while(it.hasNext()){
+			if(it.next().obtenirPriorite() == priorite){
 				nbPrio++;
 			}
 		}

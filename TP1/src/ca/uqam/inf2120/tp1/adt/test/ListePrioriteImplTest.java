@@ -126,7 +126,9 @@ public class ListePrioriteImplTest {
 	 */
 	@Test
 	public void testSupprimerT() {
-		fail("Not yet implemented");
+		listePriorite.ajouter(elt1);
+		assertTrue(listePriorite.supprimer(elt1));
+		assertTrue(listePriorite.estVide());
 	}
 
 	/**
