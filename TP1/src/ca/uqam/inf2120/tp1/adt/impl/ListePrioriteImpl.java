@@ -156,7 +156,7 @@ public class ListePrioriteImpl<T extends Priorite> implements ListePrioriteTda<T
 			int prioList = item.obtenirPriorite();
 			if(prioList==priorite){
 				listRet.add(item);
-				this.supprimer(item);
+				liste.remove(item);
 				counter++;
 			}
 		}
