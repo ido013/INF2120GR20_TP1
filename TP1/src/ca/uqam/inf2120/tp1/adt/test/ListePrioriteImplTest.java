@@ -171,13 +171,11 @@ public class ListePrioriteImplTest {
 	public void testSupprimerInt() {
 		listePriorite.ajouter(elt1);
 		listePriorite.ajouter(eltd1);
-		//assertEquals(null,listePriorite.supprimer(2));
-		listePriorite.supprimer(1);
-		assertTrue(listePriorite.estVide());
-		/*List<ElementT> listRet = listePriorite.supprimer(1);
+		assertEquals(null,listePriorite.supprimer(2));
+		List<ElementT> listRet = listePriorite.supprimer(1);
 		assertTrue(listRet.contains(elt1));
 		assertTrue(listRet.contains(eltd1));
-		//assertTrue(listePriorite.estVide());*/
+		assertTrue(listePriorite.estVide());
 	}
 		 
 
@@ -186,7 +184,10 @@ public class ListePrioriteImplTest {
 	 */
 	@Test
 	public void testSupprimerIntBoolean() {
-		fail("Not yet implemented");
+		boolean plusPetit = true;
+		listePriorite.ajouter(elt2);
+		listePriorite.ajouter(eltd2);
+		assertEquals(null,listePriorite.supprimer(3, plusPetit));
 	}
 
 	/**

@@ -19,7 +19,7 @@ public class ListePrioriteImpl<T extends Priorite> implements ListePrioriteTda<T
 
 	private List<T> liste;
 	
-	// Constructeur
+	// Constructeur de la liste
 	public ListePrioriteImpl() {
 		liste = new ArrayList<T>();
 	}
@@ -150,35 +150,69 @@ public class ListePrioriteImpl<T extends Priorite> implements ListePrioriteTda<T
 	public List<T> supprimer(int priorite) {
 		List<T> listRet = new ArrayList<T>();
 		int counter=0;
-		ListIterator<T> it = this.iterateur();
-		while(it.hasNext()){
-			T item = it.next();
-			int prioList = item.obtenirPriorite();
+		for(T i: liste){
+			int prioList = i.obtenirPriorite();
 			if(prioList==priorite){
-				listRet.add(item);
-				liste.remove(item);
+				listRet.add(i);
 				counter++;
 			}
 		}
-		if(counter==0){
+		if(counter!=0){
+			this.supprimer(listRet);
+		}else{
 			listRet=null;
 		}
 		return listRet;
 	}
 
+	/**
+	 * Supprime les éléments selon les conditions suivantes :
+	 *   - Si le paramètre "plusPetit" est vrai, les éléments à supprimer doivent
+	 *     avoir la priorité plus petite que celle passée en paramètre.
+	 *   - Si le paramètre "plusPetit" est faux, les éléments à supprimer doivent
+	 *     avoir la priorité plus grande que celle passée en paramètre.
+	 *     
+	 * Les éléments supprimés sont retournés dans un tableau liste. Une valeur nulle
+	 * est retournée si aucun élément n'est supprimé.
+	 * 
+	 * @param priorite La priorité
+	 * @return Le tableau liste des éléments supprimés
+	 */
 	/* (non-Javadoc)
 	 * @see ca.uqam.inf2120.tp1.adt.ListePrioriteTda#supprimer(int, boolean)
 	 */
-	@Override
 	public List<T> supprimer(int priorite, boolean plusPetit) {
-		// TODO Auto-generated method stub
-		return null;
+		List<T> listRet = new ArrayList<T>();
+		List<T> listTmp = new ArrayList<T>();
+		int counter=0;
+		
+		if(plusPetit && priorite!=1){ //Si priorite est 1 on a rien a effacer
+			for(int i=priorite-1; i<priorite; i--){
+				listTmp = this.supprimer(i);
+				if(listTmp!=null){
+					listRet.addAll(listTmp);
+					counter++;
+				}
+			}
+		}else if(!plusPetit){
+			for(T i: liste){
+				if(i.obtenirPriorite()>priorite){
+					listRet.add(i);
+					this.supprimer(i);
+					counter++;
+				}
+			}
+		}
+		if(counter==0){
+			listRet = null;
+		}
+		
+		return listRet;
 	}
 
 	/* (non-Javadoc)
 	 * @see ca.uqam.inf2120.tp1.adt.ListePrioriteTda#remplacer(int, int)
 	 */
-	@Override
 	public boolean remplacer(int anciennePriorite, int nouvellePriorite) {
 		// TODO Auto-generated method stub
 		return false;
@@ -201,19 +235,15 @@ public class ListePrioriteImpl<T extends Priorite> implements ListePrioriteTda<T
 		return nbPrio;
 	}
 
-	/**
-	 * Vérifie si la liste existante est vide.
-	 * 
-	 * @return Vrai si la liste est vide, sinon faux
+	/* (non-Javadoc)
+	 * @see ca.uqam.inf2120.tp1.adt.ListePrioriteTda#ObtenirNbElments(int)
 	 */
 	public boolean estVide() {
 		return liste.isEmpty();
 	}
 
-	/**
-	 * Retourne un itérateur sur la liste courante.
-	 * 
-	 * @return Itérateur sur la liste courante.
+	/* (non-Javadoc)
+	 * @see ca.uqam.inf2120.tp1.adt.ListePrioriteTda#estVide()
 	 */
 	public ListIterator<T> iterateur() {
 		ListIterator<T> it = liste.listIterator();
