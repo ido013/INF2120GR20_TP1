@@ -185,13 +185,15 @@ public class ListePrioriteImpl<T extends Priorite> implements ListePrioriteTda<T
 		List<T> listRet = new ArrayList<T>();
 		List<T> listTmp = new ArrayList<T>();
 		int counter=0;
-		
 		if(plusPetit && priorite!=1){ //Si priorite est 1 on a rien a effacer
 			for(int i=priorite-1; i<priorite; i--){
 				listTmp = this.supprimer(i);
 				if(listTmp!=null){
 					listRet.addAll(listTmp);
 					counter++;
+				}
+				if(this.estVide()){
+					i=priorite;
 				}
 			}
 		}else if(!plusPetit){

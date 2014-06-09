@@ -185,9 +185,9 @@ public class ListePrioriteImplTest {
 	@Test
 	public void testSupprimerIntBoolean() {
 		boolean plusPetit = true;
-		listePriorite.ajouter(elt2);
-		listePriorite.ajouter(eltd2);
-		assertEquals(null,listePriorite.supprimer(3, plusPetit));
+		listePriorite.ajouter(elt1);
+		listePriorite.ajouter(eltd1);
+		assertEquals(null,listePriorite.supprimer(2, plusPetit));
 	}
 
 	/**
